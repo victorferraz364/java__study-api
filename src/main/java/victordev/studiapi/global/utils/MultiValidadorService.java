@@ -5,6 +5,7 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 
 import victordev.studiapi.global.exceptions.regras.IdManualException;
+import victordev.studiapi.modules.nutrition.model.Meals;
 
 @Service
 public class MultiValidadorService<T> {
@@ -14,5 +15,7 @@ public class MultiValidadorService<T> {
             throw new IdManualException();
         }
     }
+
+	
 	
 }
