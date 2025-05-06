@@ -34,13 +34,13 @@ public class MealsController {
 	
 	
 	@GetMapping
-	public List<Meals> listar() {
+	public List<Meals> getMeal() {
 		return mealsRepository.findAll();
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Meals adicionar(@Valid @RequestBody Meals meal) {
+	public Meals addMeal(@Valid @RequestBody Meals meal) {
 		
 		try {
 			return mealsService.registerMeal(meal);
@@ -51,7 +51,7 @@ public class MealsController {
 	}
 	
 	@PutMapping("/{mealRegisterID}")
-	public Meals atualizar(@PathVariable Long mealRegisterID, @RequestBody Meals meal) {
+	public Meals updateMeal(@PathVariable Long mealRegisterID, @RequestBody Meals meal) {
 		Meals registroAtual = mealsService.findMealRegister(mealRegisterID);
 		BeanUtils.copyProperties(meal, registroAtual, "id");
 		try {
@@ -60,10 +60,15 @@ public class MealsController {
 			throw new NegocioException(e.getMessage());
 		}
 	}
-	
 	@DeleteMapping("/{mealRegisterID}")
-	public void deletarRegistroAgua(@PathVariable Long mealRegisterID) {
+	public void deleteMeal(@PathVariable Long mealRegisterID) {
 		mealsService.excluir(mealRegisterID);
 	}
+	 
+	 @DeleteMapping("multi/{mealRegisterID}")
+	 public void deleteMultiMeal(@PathVariable List<Long> mealRegisterID) {
+			mealsService.excluir2(mealRegisterID);
+		}
+		 
 	
 }

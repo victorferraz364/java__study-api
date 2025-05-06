@@ -1,5 +1,7 @@
 package victordev.studiapi.modules.nutrition.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +30,15 @@ public class MealsService {
 	                .orElseThrow(() -> new AguaNaoEncontradaException(mealId));
 	 }
 	
+	 public void excluir2 (List<Long> ids) {
+
+		 mealsRepository.deleteAllByIdInBatch(ids);
+	 }
+	 
 	 public void excluir (Long id) {
 		 findMealRegister(id);
-		 mealsRepository.deleteById(id);
+		
 	 }
+	 
+	
 }
