@@ -4,6 +4,16 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+.gitignore
+
+.mvn/
+mvnw
+mvnw.cmd
+target/
+.idea/
+.vscode/
+*.iml
+
 ### STS ###
 .apt_generated
 .classpath
