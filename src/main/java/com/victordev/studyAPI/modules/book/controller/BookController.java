@@ -1,9 +1,12 @@
 package com.victordev.studyAPI.modules.book.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +24,12 @@ public class BookController {
 	public List<Book> getBooks() {
 		return bookRepository.findAll();
 	}
+	
+	@GetMapping("/{bookId}")
+    public ResponseEntity<Book> getBookById(@PathVariable UUID bookId) {
+        return bookRepository.findById(bookId)
+                .map(book -> ResponseEntity.ok(book))
+                .orElse(ResponseEntity.notFound().build());
+    }
 	
 }
