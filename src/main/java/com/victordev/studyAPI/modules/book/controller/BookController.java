@@ -59,6 +59,15 @@ public class BookController {
 	            .orElse(ResponseEntity.notFound().build());
 	}
 
+	@DeleteMapping("/{bookId}")
+	public ResponseEntity<Object> deleteBook(@PathVariable UUID bookId) {
+		return bookRepository.findById(bookId)
+				.map(book -> {
+	                bookRepository.delete(book);
+	                return ResponseEntity.noContent().build(); 
+	            })
+	            .orElse(ResponseEntity.notFound().build()); 
+	}
 	
 	
 }
