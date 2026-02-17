@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.victordev.studyAPI.modules.book.model.Book;
 import com.victordev.studyAPI.modules.book.repository.BookRepository;
+import com.victordev.studyAPI.modules.book.service.BookService;
 
 @RestController
 @RequestMapping(value = "/books")
@@ -27,17 +28,18 @@ public class BookController {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	@Autowired
+	private BookService bookService;
+	
 	@GetMapping
 	public List<Book> getBooks() {
 		return bookRepository.findAll();
 	}
 	
 	@GetMapping("/{bookId}")
-    public ResponseEntity<Book> getBookById(@PathVariable UUID bookId) {
-        return bookRepository.findById(bookId)
-                .map(book -> ResponseEntity.ok(book))
-                .orElse(ResponseEntity.notFound().build());
-    }
+	public Book getBookById(@PathVariable UUID bookId) {
+		return bookService.find(bookId);
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
